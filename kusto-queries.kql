@@ -1,0 +1,17 @@
+//Verify if RequestHeaders are present
+ApiManagementGatewayLogs
+| where isnotempty(RequestHeaders)
+| project RequestHeaders, TimeGenerated
+| order by TimeGenerated desc
+| limit 10
+
+//The actual query to extract a claim from JWT
+let subscriptions = dynamic(['my-app-1', 'my-app-2', 'my-app-3', 'my-app-5', 'my-app-5']);
+ApiManagementGatewayLogs
+| where isnotempty(RequestHeaders['Authorization'])
+| extend encodedPayload = tostring(split(RequestHeaders['Authorization'], '.')[1])
+| extend decodedClaims = base64_decode_tostring(encodedPayload)
+| extend usernameClaim = tostring(parse_json(decodedClaims)["oid"])
+| project ApimSubscriptionId, usernameClaim, TimeGenerated
+| summarize Users = dcount(usernameClaim) by bin(TimeGenerated, 1h), ApimSubscriptionId
+| render columnchart
