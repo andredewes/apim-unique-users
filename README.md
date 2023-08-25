@@ -1,8 +1,8 @@
 # Plotting "unique users" charts from API Management logs
 
-It is a very common requirement when working with API gateways (such as [Azure API Management](https://learn.microsoft.com/azure/api-management/api-management-key-concepts)) to understand how many users are actively accessing your applications in the backend. However, the solution for that is not the same for everyone. For instance, a very common metric exposed out-of-the-box is the total number of HTTP requests... but that doesn't tell us how many unique users we have. Normally, an application running in the client devices generates multiple HTTP requests towards the backend.
+It is quite a common requirement when working with API gateways (such as [Azure API Management](https://learn.microsoft.com/azure/api-management/api-management-key-concepts)) to understand how many users are actively accessing your applications in the backend. However, the solution for that is not the same for everyone. For instance, a metric exposed out-of-the-box is the total number of HTTP requests... but that doesn't tell us how many unique users we have. Normally, an application running in the client devices generates multiple HTTP requests towards the backend.
 
-So... how can we achieve get the number of active and unique users from Azure API Management data?
+So... how can we get the number of active and unique users from Azure API Management data?
 
 # Defining what is a "unique user" in your context
 
